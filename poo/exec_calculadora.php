@@ -18,3 +18,5 @@ echo '<br>Raiz cuadrada de '.$cal->getA().' = '.$cal->rCuadrada();
 
 
 /**realizar la interfaz grafica en html de la calculadora **/
+
+var_dump($_GET);
