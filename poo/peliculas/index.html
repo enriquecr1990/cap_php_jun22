@@ -17,7 +17,7 @@
         </div>
 
         <!-- contendor de filtro -->
-        <div class="card" style="width: 100%">
+        <div class="card" id="contenedor_filtro_busqueda" style="width: 100%">
             <div class="card-header">
                 Filtro de búsqueda
             </div>
@@ -65,7 +65,7 @@
                             </div>
                             <div class="row mt-3">
                                 <div class="col-12" style="text-align: right">
-                                    <button type="button" class="btn btn-outline-info">Buscar</button>
+                                    <button type="button" id="btn_buscar_peliculas" class="btn btn-outline-info">Buscar</button>
                                 </div>
                             </div>
                         </form>
@@ -74,14 +74,14 @@
             </div>
         </div>
         <!-- contendor de tablero de resultados -->
-        <div class="card mt-3" style="width: 100%">
+        <div class="card mt-3" id="contenedor_tablero_resultados" style="width: 100%">
             <div class="card-header">
                 Tablero de resultados
             </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-12" style="text-align: right">
-                        <button type="button" class="btn btn-sm btn-outline-dark">Agregar</button>
+                        <button type="button" id="btn_agregar_pelicula" class="btn btn-sm btn-outline-dark">Agregar</button>
                     </div>
                 </div>
                 <div class="row">
@@ -96,20 +96,52 @@
                                     <th>Operaciones</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>mi villano favorito</td>
-                                <td>05 de julio</td>
-                                <td>A/Animación</td>
-                                <td>
-                                    <button type="button" class="btn btn-sm btn-outline-warning">Editar</button>
-                                    <button type="button" class="btn btn-sm btn-outline-danger">Eliminar</button>
-                                </td>
-                            </tr>
+                            <tbody id="tbody_resultados_peliculas">
+                                <tr>
+                                    <td>1</td>
+                                    <td>mi villano favorito</td>
+                                    <td>05 de julio</td>
+                                    <td>A/Animación</td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-outline-warning btn_modificar_pelicula">Editar</button>
+                                        <button type="button" class="btn btn-sm btn-outline-danger btn_eliminar_pelicula">Eliminar</button>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- contenedor del formulario de registro de las peliculas -->
+        <div class="card" id="contenedor_formulario_peliculas" style="width: 100%; display: none">
+            <div class="card-header" id="titulo_formulario">
+                Formulario de alta/modificacion
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3"></div>
+                    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                        <form>
+                            <div class="row">
+                                <div class="col-auto">
+                                    <label for="input_form_titulo" class="col-form-label">Titulo</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input type="text" id="input_form_titulo" name="titulo" class="form-control" placeholder="Titulo de la pelicula">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 text-center">
+                                    <button type="reset" id="btn_reiniciar_form_pelicula" style="display: none">Reiniciar form</button>
+                                    <button type="button" id="btn_cancelar_form_pelicula" class="btn btn-sm btn-danger">Cancelar</button>
+                                    <button type="button" id="btn_guardar_form_pelicula" class="btn btn-sm btn-primary">Guadar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-lg-3 col-md-3"></div>
                 </div>
             </div>
         </div>
