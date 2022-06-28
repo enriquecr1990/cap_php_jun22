@@ -2,6 +2,7 @@
 
 //incluir los controladores necesario a utilizar
 include_once "controlador/CatalogosControllador.php";
+include_once "controlador/PeliculasControlador.php";
 
 //el backend necesita
 /**
@@ -29,6 +30,10 @@ if(isset($parametros_get['peticion']) && $parametros_get['peticion'] != ''){
                         $respuesta_controlador = $catControlador->listadoCatCatagoria();
                         $rutas->peticion(200,$respuesta_controlador);
                         break;
+                    case 'clasificacion':
+                        $respuesta_controlador = $catControlador->listadoCatClasificacion();
+                        $rutas->peticion(200,$respuesta_controlador);
+                        break;
                     default:
                         $rutas->peticion(404,$respuesta_back);
                         break;                }
@@ -37,6 +42,43 @@ if(isset($parametros_get['peticion']) && $parametros_get['peticion'] != ''){
                 //construir mi controller de pelicula
                 //switch de funcion
                 //listado, agregar, modificar, eliminar
+                $peliculaControlador = new PeliculasControlador();
+                switch ($parametros_get['funcion']){
+                    case 'listado':
+                        $respuesta_controlador = $peliculaControlador->listado();
+                        $rutas->peticion(200,$respuesta_controlador);
+                        break;
+                    case 'agregar':
+                        $respuesta_controlador = array(
+                            'status' => true,
+                            'msg' => array(
+                                'Se registro la pelicula correctamente'
+                            )
+                        );
+                        $rutas->peticion(201,$respuesta_controlador);
+                        break;
+                    case 'modificar':
+                        $respuesta_controlador = array(
+                            'status' => true,
+                            'msg' => array(
+                                'Se actualizo la pelicula correctamente'
+                            )
+                        );
+                        $rutas->peticion(200,$respuesta_controlador);
+                        break;
+                    case 'eliminar':
+                        $respuesta_controlador = array(
+                            'status' => true,
+                            'msg' => array(
+                                'Se elimino la pelicula correctamente'
+                            )
+                        );
+                        $rutas->peticion(200,$respuesta_controlador);
+                        break;
+                    default:
+                        $rutas->peticion(404,$respuesta_back);
+                        break;                }
+                break;
                 break;
         }
     }else{
