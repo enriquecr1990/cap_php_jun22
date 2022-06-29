@@ -57,4 +57,82 @@ class BaseDeDatos {
         }return $datos_consulta;
     }
 
+    /**
+     * @param $nombreTabla
+     * @param $insert
+     * @return void
+     * $insert = array('nombre_columna' => 'valor')
+     */
+    public function insertarRegistro($nombreTabla,$insert){
+        //insert into NOMBRE_TABLA('COLUMNAS',...) values ('valor1',....);
+        $colVal = $this->obtenerClaveValorInsert($insert);
+        $consultaInsert = "INSERT INTO $nombreTabla (".$colVal['columnas'].") VALUES (".$colVal['valores'].")";
+        try{
+            $query = $this->mysqli->query($consultaInsert);
+            if($query !== true){
+                return false;
+            }return true;
+        }catch (Exception $ex){
+            return false;
+        }
+    }
+
+    /**
+     * agregar la funcion de actualizar registro
+     * conforme al SQL de update
+     * UPDATE nombre_tabla SET valores_update condiciones
+     */
+    public function actualizarRegistro($nombreTabla,$valoresUpdate,$condicionesUpdate){
+        try{
+            $sqlCamposUpdate = $this->obtenerClaveValorUpdate($valoresUpdate);
+            $stringCondicionesUpdate = $this->obtenerCondicionalesWhere($condicionesUpdate);
+            $consultaUpdateSQL = "UPDATE $nombreTabla SET $sqlCamposUpdate $stringCondicionesUpdate";
+            var_dump($consultaUpdateSQL);
+        }catch (Exception $ex){
+            return false;
+        }
+    }
+
+    private function obtenerClaveValorInsert($insert){
+        $retorno = array();
+        $stringNombreColumnas = '';
+        $stringValoresColumnas = '';
+        $iteracion = 1;
+        $maxIteracionInsert = sizeof($insert);
+        foreach ($insert as $columna => $valor){
+            $stringNombreColumnas .= $columna;
+            $stringValoresColumnas .= "'".$valor."'";
+            if($iteracion < $maxIteracionInsert){
+                $stringNombreColumnas .= ',';
+                $stringValoresColumnas .= ',';
+            }
+            $iteracion++;
+        }
+        $retorno['columnas'] = $stringNombreColumnas;
+        $retorno['valores'] = $stringValoresColumnas;
+        return $retorno;
+    }
+
+    private function obtenerClaveValorUpdate($camposUpdate){
+        $stringCampoValorSQL = '';
+        $iteracion = 1;
+        $maxItCampo = sizeof($camposUpdate);
+        foreach ($camposUpdate as $columna => $valor){
+            $stringCampoValorSQL .= " $columna = '$valor'";
+            if($iteracion < $maxItCampo){
+                $stringCampoValorSQL .= ',';
+            }
+            $iteracion++;
+        }
+        return $stringCampoValorSQL;
+    }
+
+    private function obtenerCondicionalesWhere($condicionales){
+        $condicionesSQL = 'WHERE 1=1';
+        foreach ($condicionales as $columna => $valor){
+            $condicionesSQL .= " AND $columna = '$valor'";
+        }
+        return $condicionesSQL;
+    }
+
 }

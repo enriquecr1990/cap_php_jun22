@@ -22,4 +22,11 @@ class ModeloBase extends BaseDeDatos
         return $this->consultaRegistros($this->tabla);
     }
 
+    public function insertar($valoresInsert){
+        return $this->insertarRegistro($this->tabla,$valoresInsert);
+    }
+
+    //agregar la funcion de update/actualizar y reciba los valores
+    //insert a actualizar y el valor del id a actualizar ('id_columna' => 'valor')
+
 }

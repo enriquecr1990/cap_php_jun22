@@ -10,6 +10,7 @@ include_once "controlador/PeliculasControlador.php";
  */
 
 $parametros_get = $_GET;
+$postFormulario = $_POST;
 
 $respuesta_back = array(
     'status' => false,
@@ -49,15 +50,11 @@ if(isset($parametros_get['peticion']) && $parametros_get['peticion'] != ''){
                         $rutas->peticion(200,$respuesta_controlador);
                         break;
                     case 'agregar':
-                        $respuesta_controlador = array(
-                            'status' => true,
-                            'msg' => array(
-                                'Se registro la pelicula correctamente'
-                            )
-                        );
-                        $rutas->peticion(201,$respuesta_controlador);
+                        $respuesta_controlador = $peliculaControlador->agregar($postFormulario);
+                        $rutas->peticion($respuesta_controlador['status'] ? 201 : 400,$respuesta_controlador);
                         break;
                     case 'modificar':
+                        //modificar el llamdado hacia el controlador de peliculas para la funcion de modificar
                         $respuesta_controlador = array(
                             'status' => true,
                             'msg' => array(
